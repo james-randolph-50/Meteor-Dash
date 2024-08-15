@@ -1,11 +1,19 @@
 import { RocketIcon } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
+type Props = {
+    degrees: number
+}
 
-const RocketComponent = (props: Props) => {
+const RocketComponent = ({degrees}: Props) => {
   return (
-    <RocketIcon size={32} className='fill-purple-600' style={{ transform: 'rotate(-45deg' }} />
+    <div>
+        <RocketIcon size={32} className='fill-purple-600' style={{ 
+            transform: `rotate(${-45 - degrees / 3}deg)`,
+            transition: 'all',
+            animationDuration: '10ms' 
+        }} />
+    </div>
   )
 }
 

@@ -2,13 +2,17 @@
 
 import HandRecognizer from "@/components/HandRecognizer";
 import RocketComponent from "@/components/RocketComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
   const [rocketLeft, setRocketLeft] = useState(0);
   const [isDetected, setIsDetected] = useState(false);
   const [degrees, setDegrees] = useState(0);
+
+  useEffect(() => {
+    setRocketLeft(window.innerWidth / 2)
+  }, [])
 
   const setHandResults = (result: any) => {
 
@@ -17,7 +21,14 @@ export default function Home() {
 
     if(result.degrees && result.degrees !== 0) {
       setRocketLeft(prev => {
-        return prev - result.degrees/6;
+        const ret = prev - result.degrees/6;
+        if (ret < 20) {
+          return prev;
+        }
+        if (ret > window.innerWidth - 52) {
+          return prev;
+        }
+        return ret;
       })
     }
   }
@@ -29,9 +40,12 @@ export default function Home() {
      </div>
      <div id="rocket-container" style={{ 
       position: "absolute",
-      left: rocketLeft
+      left: rocketLeft,
+      transition: 'all',
+      animationDuration: '10ms',
+      marginTop: '500px'
       }}>
-      <RocketComponent /> 
+      <RocketComponent degrees={degrees} /> 
      </div>
     </main>
   );
