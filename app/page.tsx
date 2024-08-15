@@ -14,6 +14,12 @@ export default function Home() {
 
     setIsDetected(result.isDetected);
     setDegrees(result.degrees);
+
+    if(result.degrees && result.degrees !== 0) {
+      setRocketLeft(prev => {
+        return prev - result.degrees/6;
+      })
+    }
   }
 
   return (

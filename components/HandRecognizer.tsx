@@ -40,7 +40,7 @@ const HandRecognizer = ({ setHandResults }: Props) => {
         Date.now()
       );
       processDetections(detections, setHandResults);
-    }, 1000);
+    }, 1000/30);
 
     setHandResults({isLoading: false })
 
