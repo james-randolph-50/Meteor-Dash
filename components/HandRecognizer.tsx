@@ -33,7 +33,7 @@ const HandRecognizer = ({ setHandResults }: Props) => {
 
   return (
     <div>
-      <video ref={videoRef}></video>
+      <video ref={videoRef} className="-scale-x-1 border-2 border-stone-400 rounded-md"></video>
     </div>
   );
 };
