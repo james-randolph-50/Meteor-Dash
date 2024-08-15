@@ -1,3 +1,5 @@
+"use client"
+
 import HandRecognizer from "@/components/HandRecognizer";
 
 export default function Home() {
