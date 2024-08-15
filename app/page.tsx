@@ -7,9 +7,13 @@ import { useState } from "react";
 export default function Home() {
 
   const [rocketLeft, setRocketLeft] = useState(0);
+  const [isDetected, setIsDetected] = useState(false);
+  const [degrees, setDegrees] = useState(0);
 
-  const setHandResults = () => {
+  const setHandResults = (result: any) => {
 
+    setIsDetected(result.isDetected);
+    setDegrees(result.degrees);
   }
 
   return (
@@ -19,7 +23,7 @@ export default function Home() {
      </div>
      <div id="rocket-container" style={{ 
       position: "absolute",
-      left: 10
+      left: rocketLeft
       }}>
       <RocketComponent /> 
      </div>
