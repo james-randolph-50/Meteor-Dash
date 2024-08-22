@@ -34,6 +34,13 @@ body {
 
 @keyframes moveDown {
   to {
-    top: 900px;
+    top: 2000px;
   }
+}
+
+.boulder-shadow {
+  filter: drop-shadow(10px 10px 5px #00000066);
+}
+.rocket-shadow {
+  filter: drop-shadow(3px 3px 2px #00000066);
 }
