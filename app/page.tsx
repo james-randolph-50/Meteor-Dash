@@ -10,6 +10,7 @@ let generationInterval: any;
 let removalInterval: any;
 
 let isInvincible = false;
+let distanceInterval: any;
 
 export default function Home() {
   const [rocketLeft, setRocketLeft] = useState(0);
@@ -20,6 +21,8 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isColliding, setIsColliding] = useState(false);
+  const [distance, setDistance] = useState(0);
+
 
   const rocketRef = useRef(null);
   const [rocket, setRocket] = useState<any>()
@@ -27,6 +30,18 @@ export default function Home() {
   useEffect(() => {
     setRocketLeft(window.innerWidth / 2);
   }, []);
+
+  useEffect(() => {
+    if (isDetected) {
+      distanceInterval = setInterval(() => {
+        setDistance(prev => prev + 1)
+      }, 100)
+    }
+
+    return ()=> {
+      clearInterval(distanceInterval)
+    }
+  }, [isDetected])
 
   useEffect(() => {
     if (isDetected) {
@@ -121,7 +136,7 @@ export default function Home() {
           return <BoulderComponent key={b.key} isMoving={isDetected} what={rocket} soWhat={collisionHandler} when={detectCollisionTrigger} />;
         })}
       </div>
-      <GameInfoOverlay info={{isLoading, isDetected, isColliding }} />
+      <GameInfoOverlay info={{isLoading, isDetected, isColliding, distance }} />
     </main>
   );
 }
