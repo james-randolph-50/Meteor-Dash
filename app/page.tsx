@@ -1,6 +1,7 @@
 "use client";
 
 import BoulderComponent from "@/components/BoulderComponent";
+import GameInfoOverlay from "@/components/GameInfoOverlay";
 import HandRecognizer from "@/components/HandRecognizer";
 import RocketComponent from "@/components/RocketComponent";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +17,9 @@ export default function Home() {
   const [degrees, setDegrees] = useState(0);
   const [boulders, setBoulders] = useState<any[]>([]);
   const [detectCollisionTrigger, setDetectCollisionTrigger] = useState<number>(0);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isColliding, setIsColliding] = useState(false);
 
   const rocketRef = useRef(null);
   const [rocket, setRocket] = useState<any>()
@@ -60,6 +64,7 @@ export default function Home() {
   }, [isDetected]);
 
   const setHandResults = (result: any) => {
+    setIsLoading(result.isLoading);
     setIsDetected(result.isDetected);
     setDegrees(result.degrees);
 
@@ -84,8 +89,10 @@ export default function Home() {
     if (!isInvincible) {
       console.log("collision occured");
       isInvincible = true;
+      setIsColliding(isInvincible)
       setTimeout(() => {
-        isInvincible = false
+        isInvincible = false;
+        setIsColliding(isInvincible)
       }, 1500)
     }
 
@@ -93,7 +100,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="absolute left-3 top-3 z-30 w-24">
+      <div className={`absolute left-3 top-3 z-30 transition-all duration-500 ${isDetected ? 'w-24' : 'w-48'} `}>
         <HandRecognizer setHandResults={setHandResults} />
       </div>
       <div
@@ -114,6 +121,7 @@ export default function Home() {
           return <BoulderComponent key={b.key} isMoving={isDetected} what={rocket} soWhat={collisionHandler} when={detectCollisionTrigger} />;
         })}
       </div>
+      <GameInfoOverlay info={{isLoading, isDetected, isColliding }} />
     </main>
   );
 }

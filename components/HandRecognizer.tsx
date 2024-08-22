@@ -89,7 +89,7 @@ function processDetections(
   detections: HandLandmarkerResult,
   setHandResults: (result: any) => void
 ) {
-  // console.log(detections);
+
 
   if (detections && detections.handedness.length > 1) {
     const rightIndex =
