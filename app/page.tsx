@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from "react";
 let generationInterval: any;
 let removalInterval: any;
 
+let isInvincible = false;
+
 export default function Home() {
   const [rocketLeft, setRocketLeft] = useState(0);
   const [isDetected, setIsDetected] = useState(false);
@@ -79,7 +81,13 @@ export default function Home() {
 
   const collisionHandler = () => {
     // after collision detected
-    console.log("collision")
+    if (!isInvincible) {
+      console.log("collision occured");
+      isInvincible = true;
+      setTimeout(() => {
+        isInvincible = false
+      }, 1500)
+    }
 
   }
 

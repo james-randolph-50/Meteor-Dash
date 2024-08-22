@@ -22,7 +22,11 @@ const BoulderComponent = ({isMoving, what, soWhat, when}: Props) => {
   const detectCollision = () => {
     if(boulderRef.current) {
         const boulder = (boulderRef.current as any).getBoundingClientRect();
-        const didCollide = boulder.left < what.right && boulder.right > what.left && boulder.bottom > what.top && boulder.top < what.bottom;
+        const didCollide =
+          boulder.left + 30 < what.right &&
+          boulder.right - 30 > what.left &&
+          boulder.bottom - 30 > what.top &&
+          boulder.top + 30 < what.bottom;
         if (didCollide) {
             soWhat();
         }
