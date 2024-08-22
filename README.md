@@ -34,3 +34,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Attributions to artists
+<a href="https://www.freepik.com/free-vector/sticker-template-with-meteorite-isolated_18345067.htm#fromView=search&page=1&position=10&uuid=d1de6d12-340d-4bcf-8c61-b148a8719955">Meteor image by brgfx on Freepik</a>
