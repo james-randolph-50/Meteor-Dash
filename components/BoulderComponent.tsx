@@ -6,18 +6,19 @@ type Props = {};
 const BoulderComponent = (props: Props) => {
   const [xState, setXState] = useState(0);
   const [yState, setYState] = useState(0);
+  const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
-    setXState(Math.random() * window.innerWidth);
+    setXState(Math.random() * (window.innerWidth - 80));
     setYState(Math.random() * 100);
+    setRotation(Math.random() * 360);
   }, []);
 
   return (
     <div
-      className="bg-red-600 h-24 w-24 border-2 border-black"
-      style={{ left: xState, top: yState, position: "absolute" }}
+      style={{ left: xState, top: yState, position: "absolute", animation: 'moveDown 3s linear forwards' }}
     >
-      <Image src={"/meteor.png"} width={80} height={80} alt={"meteor"} />
+      <Image src={"/meteor.png"} width={80} height={80} style={{rotate: `${rotation}deg`}} alt={"meteor"} />
     </div>
   );
 };
