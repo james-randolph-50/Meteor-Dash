@@ -4,6 +4,7 @@ import BoulderComponent from "@/components/BoulderComponent";
 import GameInfoOverlay from "@/components/GameInfoOverlay";
 import HandRecognizer from "@/components/HandRecognizer";
 import RocketComponent from "@/components/RocketComponent";
+import { playBackground, playFX } from "@/utils/audiohandler";
 import { useEffect, useRef, useState } from "react";
 
 let generationInterval: any;
@@ -112,6 +113,7 @@ export default function Home() {
       console.log("collision occured");
       isInvincible = true;
       setIsColliding(isInvincible);
+      playFX();
       livesRemaining--;
       setLivesRemainingState(livesRemaining);
       if (livesRemaining <= 0) {
@@ -125,6 +127,15 @@ export default function Home() {
     }
 
   }
+
+  useEffect(() => {
+    if (isDetected && !isGameOver) {
+      playBackground(false);
+    }else{
+      playBackground(true);
+    }
+
+  }, [isDetected, isGameOver])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

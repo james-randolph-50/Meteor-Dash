@@ -37,3 +37,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Attributions to artists
 <a href="https://www.freepik.com/free-vector/sticker-template-with-meteorite-isolated_18345067.htm#fromView=search&page=1&position=10&uuid=d1de6d12-340d-4bcf-8c61-b148a8719955">Meteor image by brgfx on Freepik</a>
+
+Rock smash Sound Effect by <a href="https://pixabay.com/users/lordsonny-38439655/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=161647">LordSonny</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=161647">Pixabay</a>
