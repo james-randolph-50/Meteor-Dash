@@ -108,7 +108,7 @@ export default function Home() {
 
   const collisionHandler = () => {
     // after collision detected
-    if (!isInvincible) {
+    if (!isInvincible && !isGameOver) {
       console.log("collision occured");
       isInvincible = true;
       setIsColliding(isInvincible);
