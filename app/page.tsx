@@ -11,6 +11,8 @@ let removalInterval: any;
 
 let isInvincible = false;
 let distanceInterval: any;
+let livesRemaining: number;
+
 
 export default function Home() {
   const [rocketLeft, setRocketLeft] = useState(0);
@@ -23,16 +25,21 @@ export default function Home() {
   const [isColliding, setIsColliding] = useState(false);
   const [distance, setDistance] = useState(0);
 
+  const [livesRemainingState, setLivesRemainingState] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false)
+
 
   const rocketRef = useRef(null);
   const [rocket, setRocket] = useState<any>()
 
   useEffect(() => {
     setRocketLeft(window.innerWidth / 2);
+    livesRemaining = 3;
+    setLivesRemainingState(livesRemaining);
   }, []);
 
   useEffect(() => {
-    if (isDetected) {
+    if (isDetected && !isGameOver) {
       distanceInterval = setInterval(() => {
         setDistance(prev => prev + 1)
       }, 100)
@@ -41,7 +48,7 @@ export default function Home() {
     return ()=> {
       clearInterval(distanceInterval)
     }
-  }, [isDetected])
+  }, [isDetected, isGameOver])
 
   useEffect(() => {
     if (isDetected) {
@@ -104,7 +111,13 @@ export default function Home() {
     if (!isInvincible) {
       console.log("collision occured");
       isInvincible = true;
-      setIsColliding(isInvincible)
+      setIsColliding(isInvincible);
+      livesRemaining--;
+      setLivesRemainingState(livesRemaining);
+      if (livesRemaining <= 0) {
+        // game over
+        setIsGameOver(true);
+      }
       setTimeout(() => {
         isInvincible = false;
         setIsColliding(isInvincible)
@@ -136,7 +149,7 @@ export default function Home() {
           return <BoulderComponent key={b.key} isMoving={isDetected} what={rocket} soWhat={collisionHandler} when={detectCollisionTrigger} />;
         })}
       </div>
-      <GameInfoOverlay info={{isLoading, isDetected, isColliding, distance }} />
+      <GameInfoOverlay info={{isLoading, isDetected, isColliding, distance, livesRemainingState, isGameOver }} />
     </main>
   );
 }
