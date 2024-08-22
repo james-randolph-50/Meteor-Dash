@@ -51,7 +51,7 @@ export default function Home() {
   }, [isDetected, isGameOver])
 
   useEffect(() => {
-    if (isDetected) {
+    if (isDetected && !isGameOver) {
       generationInterval = setInterval(() => {
         setBoulders((prevArr) => {
           let retArr = [...prevArr];
@@ -83,7 +83,7 @@ export default function Home() {
       clearInterval(generationInterval);
       clearInterval(removalInterval);
     };
-  }, [isDetected]);
+  }, [isDetected, isGameOver]);
 
   const setHandResults = (result: any) => {
     setIsLoading(result.isLoading);
