@@ -3,7 +3,7 @@
 import BoulderComponent from "@/components/BoulderComponent";
 import HandRecognizer from "@/components/HandRecognizer";
 import RocketComponent from "@/components/RocketComponent";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 let generationInterval: any;
 let removalInterval: any;
@@ -13,6 +13,10 @@ export default function Home() {
   const [isDetected, setIsDetected] = useState(false);
   const [degrees, setDegrees] = useState(0);
   const [boulders, setBoulders] = useState<any[]>([]);
+  const [detectCollisionTrigger, setDetectCollisionTrigger] = useState<number>(0);
+
+  const rocketRef = useRef(null);
+  const [rocket, setRocket] = useState<any>()
 
   useEffect(() => {
     setRocketLeft(window.innerWidth / 2);
@@ -49,6 +53,7 @@ export default function Home() {
 
     return () => {
       clearInterval(generationInterval);
+      clearInterval(removalInterval);
     };
   }, [isDetected]);
 
@@ -57,6 +62,7 @@ export default function Home() {
     setDegrees(result.degrees);
 
     if (result.degrees && result.degrees !== 0) {
+      setDetectCollisionTrigger(Math.random);
       setRocketLeft((prev) => {
         const ret = prev - result.degrees / 6;
         if (ret < 20) {
@@ -68,7 +74,14 @@ export default function Home() {
         return ret;
       });
     }
+    setRocket(((rocketRef.current as any).getBoundingClientRect()))
   };
+
+  const collisionHandler = () => {
+    // after collision detected
+    console.log("collision")
+
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -76,6 +89,7 @@ export default function Home() {
         <HandRecognizer setHandResults={setHandResults} />
       </div>
       <div
+      ref={rocketRef}
         id="rocket-container"
         style={{
           position: "absolute",
@@ -89,7 +103,7 @@ export default function Home() {
       </div>
       <div className="absolute z-10 h-screen w-screen overflow-hidden">
         {boulders.map((b, idx) => {
-          return <BoulderComponent key={b.key} isMoving={isDetected} />;
+          return <BoulderComponent key={b.key} isMoving={isDetected} what={rocket} soWhat={collisionHandler} when={detectCollisionTrigger} />;
         })}
       </div>
     </main>
